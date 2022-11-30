@@ -33,7 +33,7 @@ function logger (req) {
   console.log('REQ.BODY', req.body)
 }
 
-// JETS TICKETMASTER GET REQUEST
+// TICKETMASTER GET REQUEST
 app.get('/ticketmaster/:apiKey', (req, res, next) => {
   logger(req)
 
@@ -64,7 +64,7 @@ app.get('/ticketmaster/:apiKey', (req, res, next) => {
     delete query.clientUserId
   }
 
-  // Create type object
+  // Create type prop
   let type = ''
   // Copy type prop then delete from query object
   if (query.type) {
@@ -72,7 +72,7 @@ app.get('/ticketmaster/:apiKey', (req, res, next) => {
     delete query.type
   }
 
-  // Create custom properties object from remaining query string params (eventId, etc.)
+  // Create custom properties object from remaining query string params (eventId, eventName, etc.)
   const properties = query
 
   // Create POST body data object
@@ -83,6 +83,7 @@ app.get('/ticketmaster/:apiKey', (req, res, next) => {
   data.properties = properties
   console.log('DATA:', data)
 
+  // Send POST request to Attentive Custom Events API endpoint
   axios({
     url,
     method,
@@ -93,7 +94,7 @@ app.get('/ticketmaster/:apiKey', (req, res, next) => {
       // handle success
       console.log('SUCCESS')
       console.log('RESPONSE.DATA:', response.data)
-      return res.json(response.data)
+      res.json(response.data)
     })
     .catch(function (error) {
       // handle error
