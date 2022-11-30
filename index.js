@@ -18,6 +18,8 @@ app.use(cors())
 
 // Function to log messages in console
 function logger (req) {
+  // console.log('REQ:', req)
+  // console.log("=====")
   console.log('REQ.PROTOCOL:', req.protocol)
   console.log('REQ.HOSTNAME:', req.hostname)
   console.log('REQ.METHOD:', req.method)
@@ -26,7 +28,10 @@ function logger (req) {
   console.log('REQ.PATH:', req.path) // '/new'
   console.log('REQ.PARAMS:', req.params) // '/???'
   console.log('REQ.QUERY:', req.query)
+  // console.log('REQ.COOKIE:', req.cookie)
+  // console.log('REQ.COOKIES:', req.cookies)
   console.log('REQ.HEADERS:', req.headers)
+  console.log('REQ.HEADERS.COOKIE:', req.headers.cookie)
   console.log('REQ.HEADERS.AUTHORIZATION:', req.headers['authorization'])
   console.log('AUTHORIZATION:', req.get('authorization'))
   console.log('CONTENT-TYPE:', req.get('content-type'))
