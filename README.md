@@ -43,7 +43,7 @@ curl 'localhost:4000/ticketmaster/abcdef?apiKey=xyz456&type=Ticket%20Purchase&ev
 -->
 
 
-That GET request could be parsed and transformed into an Attentive Custom Events POST request like this:
+That attn.tv site woud parse the GET request and transform it into an Attentive Custom Events POST request like this:
 
 ```shell
 curl -i -X POST \
