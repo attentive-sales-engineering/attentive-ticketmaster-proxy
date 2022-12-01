@@ -39,46 +39,35 @@ function logger (req) {
 }
 
 // TICKETMASTER GET REQUEST
-app.get('/ticketmaster/:apiKey', (req, res, next) => {
+app.get('/ticketmaster', (req, res, next) => {
   logger(req)
 
   const url = `https://api.attentivemobile.com/v1/events/custom`
   console.log('URL:', url)
   const method = 'POST'
-  const headers = {}
-  const apiKey = req.params.apiKey
-  headers['authorization'] = `Bearer ${apiKey}`
-  headers['content-type'] = 'application/json'
 
   // Query String Params
   const query = req.query
 
-  // Create User object
-  const user = {}
-  // Copy user props then delete from query object
-  if (query.phone) {
-    user.phone = query.phone
-    delete query.phone
-  }
-  if (query.email) {
-    user.email = query.email
-    delete query.email
-  }
-  if (query.clientUserId) {
-    user.externalIdentifiers.clientUserId = query.clientUserId
-    delete query.clientUserId
-  }
+  // Create apiKey from query object then delete it from query object
+  const apiKey = query.apiKey
+  delete query.apiKey
 
-  // Create type prop
-  let type = ''
-  // Copy type prop then delete from query object
-  if (query.type) {
-    type = query.type
-    delete query.type
-  }
+  // Create auth header from apiKey
+  const headers = {}
+  headers['authorization'] = `Bearer ${apiKey}`
+  headers['content-type'] = 'application/json'
 
-  // Create custom properties object from remaining query string params (eventId, eventName, etc.)
+  // Create type prop from query object then delete it from query object
+  const type = query.type
+  delete query.type
+
+  // Create custom properties object from remaining query string params (eventId, amount, etc.)
   const properties = query
+
+  // Create User object from cookie data
+  const user = {}
+  user.phone = req.headers.cookie.replace('phone=', '')
 
   // Create POST body data object
   const data = {}
