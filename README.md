@@ -22,11 +22,13 @@ npm run dev
 
 Many companies use Ticketmaster to sell tickets to events and want to track the source of a ticket referral for attribution. Ticketmaster does not allow you to add third-party javascript tags but it does allow you to perform *pixel tracking* by including an `img` tag that performs a GET request with custom parameters attached. A cookie for identifying the subscriber can be set by the `attn.tv` domain during the sign-up process and this cookie would be sent by the browser when fetching an image from the `attn.tv` domain. This cookie and the params can be used to extract event data and properties and rerouted to the Attentive API as an authenticated POST request.
 
+![Ticketmaster UI](ticketmaster-ui.png)
+
 ## Flow
 
 An `__attentive_id` cookie is created by the `attn.tv` domain during the sign-up unit process. When `ticketmaster.com` fetches an image from the `attn.tv` domain the cookies belonging to that domain will be passed in the header of the GET request. The `attn.tv` server can inspect the cookie to determine the user and transform the request into a Custom Events API request.
 
-![Ticket Master Flow](ticketmaster-flow.png)
+![Ticketmaster Flow](ticketmaster-flow.png)
 
 ## curl examples
 
