@@ -18,7 +18,7 @@ Add your Attentive API Key as a Bearer token to the `AUTH` environment varialbe 
 AUTH="Bearer <API KEY>"
 ```
 
-Replace the placeholder phone number with your mobile phone number in E.164 format in the `document.cookie` script in the header of the index.html file. NOTE: Your mobile phone number must be subscribed to receive marketing texts for the Attentive account you are using.
+Replace the placeholder phone number with your mobile phone number in E.164 format in the `document.cookie` script in the header of the `index.html` file. NOTE: Your mobile phone number must be subscribed to receive marketing texts for the Attentive account you are using.
 
 ```javascript
   <script>
@@ -38,13 +38,12 @@ npm start
 
 - Open the index.html file on localhost using Live Server VS Code Extension or similar. 
 - The client will plant a`phone` coookie associated with localhost.
-- The client will make a GET request to your server on localhost:4000 to fetch a non-existent image. The image URL has a number of query params that identify the transaction.
+- The client will make a GET request to your server on localhost:4000 to fetch a non-existent image. The image URL has a number of query params that identify the transaction. In addition, the `phone` cookie will be passed to the server on localhost.
 
 ```html
 <img src="//localhost:4000/ticketmaster?type=Tickets%20Purchased&eventId=123456&amount=$499&eventName=Taylor%20Swift%20Concert" alt="">
 ```
-- Along with the params in the URL, the `phone` cookie will be passed to the server on localhost.
-- The server will parse the request and make a POST request to the Attentive Custom Event API with the associated properties. NOTE: You could also make requests to the eCommerce Event API or the Custom Attributes API as necessary.
+- The server will parse the request and make a POST request to the Attentive Custom Event API with the associated properties and the cookie that identifies the subscriber. NOTE: You could also make requests to the eCommerce Event API or the Custom Attributes API as necessary.
 
 ## Ticketmaster params
 
