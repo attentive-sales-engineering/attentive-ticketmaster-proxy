@@ -10,13 +10,41 @@ Requires Node.js. To install dependencies type:
 npm install
 ```
 
-## Run it
+## Configuration
 
-Uses `nodemon` to automatically reboot server as you make/save changes. To run the server type:
+Add your Attentive API Key as a Bearer token to the `AUTH` environment varialbe in the  `.env` file. For example:
+
+```
+AUTH="Bearer <API KEY>"
+```
+
+Replace the placeholder phone number with your mobile phone number in E.164 format in the `document.cookie` script in the header of the index.html file. NOTE: Your mobile phone number must be subscribed to receive marketing texts for the Attentive account you are using.
+
+```javascript
+  <script>
+    document.cookie = "phone=+12065551234"
+  </script>
+```
+
+## Run the server
+
+To run the server type:
 
 ```shell
-npm run dev
+npm start
 ```
+
+## Run the client
+
+- Open the index.html file on localhost using Live Server VS Code Extension or similar. 
+- The client will plant a`phone` coookie associated with localhost.
+- The client will make a GET request to your server on localhost:4000 to fetch a non-existent image. The image URL has a number of query params that identify the transaction.
+
+```html
+<img src="//localhost:4000/ticketmaster?type=Tickets%20Purchased&eventId=123456&amount=$499&eventName=Taylor%20Swift%20Concert" alt="">
+```
+- Along with the params in the URL, the `phone` cookie will be passed to the server on localhost.
+- The server will parse the request and make a POST request to the Attentive Custom Event API with the associated properties. NOTE: You could also make requests to the eCommerce Event API or the Custom Attributes API as necessary.
 
 ## Ticketmaster params
 
@@ -35,8 +63,8 @@ An `__attentive_id` cookie is created by the `attn.tv` domain during the sign-up
 For example, when fetching an image from ticketmaster.com from attn.tv, the GET request could be constructed like this:
 
 ```shell
-curl 'https://attn.tv/image.jpg?apiKey=xyz456&type=Ticket%20Purchase&eventId=abc123&amount=$499' \
--b "__attentive_id=def789"
+curl 'https://attn.tv/image.jpg?type=Tickets%20Purchased&eventId=123456&amount=$499&eventName=Taylor%20Swift%20Concert' \
+-b "phone=+12065551234"
 ```
 
 <!-- 
@@ -55,10 +83,11 @@ curl -i -X POST \
   -d '{
     "type": "Ticket Purchase",
     "user": {
-      "__attentive_id": "def789",
+      "phone": "+12065551234",
     }
     "properties": {
       "eventId": "abc123",
+      "eventName": "Taylor Swift Concert",
       "amount": "$499"
     }
   }'
