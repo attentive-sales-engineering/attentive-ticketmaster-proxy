@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const axios = require('axios')
 const PORT = process.env.PORT || 4000
+const AUTH = process.env.AUTH
 
 // Create Express Server
 const app = express()
@@ -49,14 +50,11 @@ app.get('/ticketmaster', (req, res, next) => {
   // Query String Params
   const query = req.query
 
-  // Create apiKey from query object then delete it from query object
-  const apiKey = query.apiKey
-  delete query.apiKey
-
   // Create auth header from apiKey
   const headers = {}
-  headers['authorization'] = `Bearer ${apiKey}`
+  headers['authorization'] = AUTH
   headers['content-type'] = 'application/json'
+  console.log('HEADERS:', headers)
 
   // Create type prop from query object then delete it from query object
   const type = query.type
