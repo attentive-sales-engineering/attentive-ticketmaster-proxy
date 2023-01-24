@@ -53,7 +53,7 @@ Many companies use Ticketmaster to sell tickets to events and want to track the 
 
 ## Flow
 
-An `__attentive_id` cookie is created by the `attn.tv` domain during the sign-up unit process. When `ticketmaster.com` fetches an image from the `attn.tv` domain the cookies belonging to that domain will be passed in the header of the GET request. The `attn.tv` server can inspect the cookie to determine the user and transform the request into a Custom Events API request.
+An `__attentive_id` cookie will be created by the `attentive.com` domain during the sign-up unit process. When `ticketmaster.com` fetches an image from the `attentive.com` domain the cookies belonging to that domain will be passed in the header of the GET request when requesting the image. The `attentive.com` server can inspect the cookie to determine the user and transform the request into a Custom Events (or eCommerce) API request.
 
 ![Ticketmaster Flow](ticketmaster-flow.png)
 
