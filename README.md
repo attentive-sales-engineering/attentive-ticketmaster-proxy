@@ -53,9 +53,9 @@ Many companies use Ticketmaster to sell tickets to events and want to track the 
 
 ## Flow
 
-An `__attentive_id` cookie will be created by the `attentive.com` domain during the sign-up unit process. When `ticketmaster.com` fetches an image from the `attentive.com` domain the cookies belonging to that domain will be passed in the header of the GET request when requesting the image. The `attentive.com` server can inspect the cookie to determine the user and transform the request into a Custom Events (or eCommerce) API request.
+A Third-Party Cookie ID `tpc_id` will be created by the `attentive.com` domain during the sign-up unit process. When `ticketmaster.com` fetches an image from the `attentive.com` domain the cookies belonging to that domain will be passed in the header of the GET request when requesting the image. The `attentive.com` server can inspect the cookie to determine the user and transform the request into a Custom Events (or eCommerce) API request.
 
-![Ticketmaster Flow](ticketmaster-flow.png)
+![Ticketmaster Flow](ticketmaster-tpc-flow.png)
 
 ## curl examples
 
@@ -68,7 +68,7 @@ curl 'https://attn.tv/image.jpg?type=Tickets%20Purchased&eventId=123456&amount=$
 
 <!-- 
 curl 'localhost:4000/ticketmaster/abcdef?apiKey=xyz456&type=Ticket%20Purchase&eventId=abc123&amount=$499' \
--b "__attentive_id=def789" 
+-b "tpc_id=def789" 
 -->
 
 
